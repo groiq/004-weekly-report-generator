@@ -12,7 +12,8 @@ errlog = []
 # Select evaluated projects
 # -------------------------
 
-projects = ["Programmieren", "Lernen", "Uni", "Papa", "Organisation", "Schlafen"]
+# projects = ["Programmieren", "Lernen", "Uni", "Papa", "Organisation", "Schlafen"]
+projects = ["Organisation", "Programmieren", "Organisation - geteilt", "Organisation - privat", "Programmieren - privat" ]
 
 def optionSelection(optionList):
     returnString = ""
@@ -20,7 +21,7 @@ def optionSelection(optionList):
         returnString += "{} {}\n".format(optionList.index(item), item)
     return returnString
 
-promptDefault = "0,1,4"     # replace with a list or tuple at some point?
+promptDefault = "0,1"     # replace with a list or tuple at some point?
 promptForProjects = input("Select projects by typing the respective numbers:\n(default: {})\n{}".format(promptDefault, optionSelection(projects)))
 if promptForProjects == "": promptForProjects = promptDefault
 
