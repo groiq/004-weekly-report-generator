@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+# TODO test, then commit to main
+# later - create projects dynamically
+#
+#siehe dazu C:\Users\HAL\Dropbox\Git\var_kandidaten\arbeitszeitVergleich.py !
+
 import re
 from datetime import date, time, timedelta, datetime
 #from collections import OrderedDict
