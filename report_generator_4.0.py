@@ -3,12 +3,13 @@
 # Imports
 # -------
 
-output = list()
-errlog = list()
-
+from pprint import pprint
 from argparse import ArgumentParser
 # import datetime
 from datetime import date,datetime,timedelta
+
+output = list()
+errlog = list()
 
 # Parameters
 # ----------
@@ -72,6 +73,12 @@ else:
 
 print("start date: {}\nend date: {}".format(start_date, end_date))
 
+start_date_str = format(start_date)
+end_date_str = format(end_date)
+
+pprint(start_date_str)
+pprint(end_date_str)
+
 # Set up a list of entries for the selected days
 # ----------------------------------------------
 
@@ -79,8 +86,8 @@ listOfDays = []
 
 date = start_date
 while date <= end_date:
-    print(date)
-    dayEntry = dict()
+    # print(date)
+    dayEntry = {}
     dayEntry["date"] = date
     dayEntry["report"] = dict()
     dayEntry["tasks"] = []
@@ -88,30 +95,48 @@ while date <= end_date:
     listOfDays.append(dayEntry)
     date += day_delta
 
-# print(listOfDays)
-for day in listOfDays:
-    print(day)
+# pprint(listOfDays)
 
 # Retrieve data from toggl API
 # ----------------------------
+
+# https://github.com/matthewdowney/TogglPy
     
 import json 
 from TogglPy import Toggl
 toggl = Toggl()
 
-token_line = "data/api_token.txt"
+id_path = "data/id.txt"
+id_vals = {}
 
-for i in range(2):
-    token_file = open(token_line, "r", encoding="utf-8")
-    token_line = token_file.readline().strip()
-    
-_api_token = token_line
-# print(_api_token)
+id_file = open(id_path, "r", encoding="utf-8")
+for line in id_file:
+    line = line.strip().split("::")
+    id_key = line[0]
+    id_path = line[1]
+    id_file = open(id_path, "r", encoding="utf-8")
+    id_val = id_file.readline().strip()
+    id_vals[id_key] = id_val
+# print(id_vals)
 
+_api_token = id_vals["token"]
 toggl.setAPIKey(_api_token)
 
-print(toggl.getWorkspaces())
+
+# for workspace in toggl.getWorkspaces():
+    # print("Workspace: {}; id: {}".format(workspace["name"],workspace["id"]))
+
+request_params = {
+                "workspace_id": 2237802,
+                "user_agent": id_vals["uagent"],
+                "since": start_date_str,
+                "until": end_date_str,
+                }
     
+# response = toggl.request("https://toggl.com/reports/api/v2/details", 
+            # parameters=request_params)
+
+# pprint(response)
     
 # Then have the program retrieve data.
 # Then set up project selection from the retrieved data.
