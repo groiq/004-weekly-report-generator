@@ -95,17 +95,23 @@ for day in listOfDays:
 # Retrieve data from toggl API
 # ----------------------------
     
-# using code from
-# https://baxeico.wordpress.com/2014/03/13/build-excel-timesheet-toggl-api-python/
-    
-import urllib.request, urllib.parse, urllib.error
 import json 
+from TogglPy import Toggl
+toggl = Toggl()
 
-_api_token = 'api_token_taken_from_your_toggl_profile'
- 
-# r = requests.get('https://www.toggl.com/api/v8/workspaces',
-                 # auth=(_api_token, 'api_token'))
-# print r.json()
+token_line = "data/api_token.txt"
+
+for i in range(2):
+    token_file = open(token_line, "r", encoding="utf-8")
+    token_line = token_file.readline().strip()
+    
+_api_token = token_line
+# print(_api_token)
+
+toggl.setAPIKey(_api_token)
+
+print(toggl.getWorkspaces())
+    
     
 # Then have the program retrieve data.
 # Then set up project selection from the retrieved data.
