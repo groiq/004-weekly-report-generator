@@ -92,10 +92,27 @@ while date <= end_date:
 for day in listOfDays:
     print(day)
 
+# Retrieve data from toggl API
+# ----------------------------
+    
+# using code from
+# https://baxeico.wordpress.com/2014/03/13/build-excel-timesheet-toggl-api-python/
+    
+import urllib.request, urllib.parse, urllib.error
+import json 
+
+_api_token = 'api_token_taken_from_your_toggl_profile'
+ 
+# r = requests.get('https://www.toggl.com/api/v8/workspaces',
+                 # auth=(_api_token, 'api_token'))
+# print r.json()
+    
 # Then have the program retrieve data.
 # Then set up project selection from the retrieved data.
 
 # If there's no report, prompt for one.
+
+# Move the "set up list of entries" code down past the retrieve part
 
 
 
