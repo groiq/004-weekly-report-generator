@@ -31,19 +31,23 @@ day_delta = timedelta(1,0,0)
 # Methods for prompting for dates. These are repeated if there are issues
 # with the input.
 def dateInput():
-    date_year = datePartInput("year")
-    if date_year < 100:
-        date_year += 2000
-    date_month = datePartInput("month")
-    date_day = datePartInput("day")
+    result = date.today()
+    components = { "year": result.year, "month": result.month, 
+                    "day": result.day }
+    for component in components:
+        components[component] = datePartInput(component,components)
+    if components["year"] < 100:
+        components["year"] += 2000
     try:
-        result = date(date_year,date_month,date_day)
+        result = date(components["year"], components["month"], 
+                    components["day"])
     except:
+        print(components)
         print("Something went wrong with building the date. Retry.")
         result = dateInput()
     return result
     
-def datePartInput(prompt: str):
+def datePartInput(prompt: str,components: dict):
     result = input("{} : ".format(prompt))
     if result:
         try:
@@ -53,7 +57,7 @@ def datePartInput(prompt: str):
             result = datePartInput(prompt)
     else:
         print("Input empty. Defaulting to current {}.".format(prompt))
-        # TTT set value to current
+        result = components[prompt]
     return result
     
 if args.interactive:
@@ -63,6 +67,11 @@ if args.interactive:
     start_date = dateInput()
     print("last date:")
     end_date = dateInput()
+    if end_date < start_date:
+        print("End date before start date. Swapping values.")
+        dummy_date = start_date
+        start_date = end_date
+        end_date = dummy_date
 else:
     # set start_date to this monday...
     start_date = date.today() - (date.weekday(date.today()) * day_delta)
