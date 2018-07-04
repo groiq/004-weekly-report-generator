@@ -110,33 +110,38 @@ id_path = "data/id.txt"
 id_vals = {}
 
 id_file = open(id_path, "r", encoding="utf-8")
+id_path = id_file.readline().strip()
+print(id_path)
+id_file = open(id_path, "r", encoding="utf-8")
 for line in id_file:
     line = line.strip().split("::")
     id_key = line[0]
-    id_path = line[1]
-    id_file = open(id_path, "r", encoding="utf-8")
-    id_val = id_file.readline().strip()
+    id_val = line[1]
     id_vals[id_key] = id_val
-# print(id_vals)
+# pprint(id_vals)
 
-_api_token = id_vals["token"]
-toggl.setAPIKey(_api_token)
+toggl.setAPIKey(id_vals["token"])
+
 
 
 # for workspace in toggl.getWorkspaces():
     # print("Workspace: {}; id: {}".format(workspace["name"],workspace["id"]))
 
 request_params = {
-                "workspace_id": 2237802,
+                "workspace_id": id_vals["id"],
                 "user_agent": id_vals["uagent"],
                 "since": start_date_str,
                 "until": end_date_str,
                 }
     
-# response = toggl.request("https://toggl.com/reports/api/v2/details", 
-            # parameters=request_params)
+response = toggl.request("https://toggl.com/reports/api/v2/details", 
+            parameters=request_params)
 
 # pprint(response)
+
+for item in response:
+    output.append(item)
+    output.append(response[item])
     
 # Then have the program retrieve data.
 # Then set up project selection from the retrieved data.
@@ -154,15 +159,28 @@ request_params = {
 # ------------
 
 if errlog:
-    outfile = open("errlog.txt", "w", encoding="utf-8")
+    errfile = open("{}errlog.txt".format(id_vals["outpath"]), "w", 
+                    encoding="utf-8")
     for entry in errlog:
         try:
-            outfile.write(entry)
+            errfile.write(entry)
         except:
-            outfile.write(format(entry))
-        outfile.write("\n")
-    outfile.close()
-    
+            errfile.write(format(entry))
+        errfile.write("\n")
+    errfile.close()
+
+outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
+                "w", encoding="utf-8")
+# outfile.write(format(response))
+for item in output:
+    outfile.write(format(item))
+    # try:
+        # outfile.write(item)
+    # except:
+        # outfile.write(format(item))
+    outfile.write("\n")
+outfile.close()
+
 # The actual outfile will be formatted using the dates evaluated.
 # All this later.
 
