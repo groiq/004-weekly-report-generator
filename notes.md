@@ -20,3 +20,18 @@ more flexible project list
 
 a script to delete breaks
 
+Auxiliary programs:
+
+An auxiliary will be a seperate .py script that implements a part of the functionality, so I won't have to navigate through the entire file at once.
+
+One auxiliary for the task "fetch current year for date".
+
+Temporarily read the data from a local file, instead of fetching from toggl every time.
+
+Write a daily resumee. I have a file of running notes. 
+
+When I first start the computer on a new day, insert a datestamp into the notes. (Automate later.)
+
+One resumee per day and project. (Maybe override later?)
+
+If no resumee is found, prompt.
