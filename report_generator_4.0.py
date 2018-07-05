@@ -156,10 +156,13 @@ response = toggl.request("https://toggl.com/reports/api/v2/details",
 # Extract data
 # ------------
 
-response = response["data"]
+# totalTime = response["total_grand"]
+totalTime = timedelta(milliseconds=response["total_grand"])
+
+taskList = response["data"]
 
 # response = json.loads(response)
-print(type(response))
+# print(type(response))
 
                
 # pprint(response)
@@ -168,6 +171,8 @@ print(type(response))
     # output.append(item)
     # output.append(response[item])
     
+    
+
     
 # Then set up project selection from the retrieved data.
 
@@ -181,7 +186,10 @@ print(type(response))
 # add data to output
 # ------------------
 
+output.append(totalTime)
 
+for item in taskList:
+    output.append(item)
 
 
 # Write output

@@ -35,5 +35,3 @@ One resumee per day and project. (Maybe override later?)
 
 If no resumee is found, prompt.
 
-Why id and pid in data?
-
