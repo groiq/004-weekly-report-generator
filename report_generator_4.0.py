@@ -114,6 +114,11 @@ for line in id_file:
 
 toggl.setAPIKey(id_vals["token"])
 
+# outfile for interim test
+outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
+                "w", encoding="utf-8")
+def out(item):
+    pprint(item,outfile)
 
 
 # for workspace in toggl.getWorkspaces():
@@ -247,20 +252,20 @@ if errlog:
         errfile.write("\n")
     errfile.close()
 
-outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
-                "w", encoding="utf-8")
+# outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
+                # "w", encoding="utf-8")
 # outfile.write(format(response))
-for item in output:
-    pprint(item,outfile)
-    if not item:
-        outfile.write("\n")
-    # outfile.write(format(item))
-    # try:
-        # outfile.write(item)
-    # except:
-        # outfile.write(format(item))
-    # outfile.write("\n")
-outfile.close()
+# for item in output:
+    # pprint(item,outfile)
+    # if not item:
+        # outfile.write("\n")
+    # # outfile.write(format(item))
+    # # try:
+        # # outfile.write(item)
+    # # except:
+        # # outfile.write(format(item))
+    # # outfile.write("\n")
+# outfile.close()
 
 # The actual outfile will be formatted using the dates evaluated.
 # All this later.
