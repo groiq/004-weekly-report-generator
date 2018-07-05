@@ -80,8 +80,8 @@ else:
     # end date is six days later
     end_date = start_date + (day_delta * 6)
 
-output.append("start date: {}; end date: {}".format(start_date, end_date))
-output.append("")
+# out("start date: {}; end date: {}".format(start_date, end_date))
+# out("")
 start_date_str = format(start_date)
 end_date_str = format(end_date)
 
@@ -118,7 +118,10 @@ toggl.setAPIKey(id_vals["token"])
 outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
                 "w", encoding="utf-8")
 def out(item):
-    pprint(item,outfile)
+    if item:
+        pprint(item,outfile)
+    else:
+        outfile.write("\n")
 
 
 # for workspace in toggl.getWorkspaces():
@@ -154,10 +157,10 @@ taskData = response["data"]
 
                
 # pprint(response)
-# output.append(response)
+# out(response)
 # for item in response:
-    # output.append(item)
-    # output.append(response[item])
+    # out(item)
+    # out(response[item])
     
 # Transfer the data to a format I can work with
 # ---------------------------------------------
@@ -177,28 +180,32 @@ taskData = response["data"]
 
 taskLog = dict()
 timeFormat = "%Y-%m-%dT%H:%M:%S%z"
-output.append(taskLog)
-output.append("")
+out(taskLog)
+out("")
 
 for item in taskData:
-    output.append(item)
+    out(item)
     project = item["project"]
-    taskLog[project] = {}
+    taskLog[project] = dict()
+    dateStr = item["start"][0:10]
+    out(dateStr)
     startTime = datetime.strptime(item["start"], timeFormat)
     endTime = datetime.strptime(item["end"], timeFormat)
     date = startTime.date()
-    taskLog[project][date] = []
-    output.append("--------------------")
-    output.append(taskLog)
-    output.append("")
-    # output.append("start time")
-    # output.append(startTime)
-    # output.append(format(startTime))
+    if not dateStr in taskLog[project]:
+        taskLog[project][dateStr] = list()
+    out("--------------------")
+    out(taskLog)
+    out(taskLog[project])
+    out("")
+    # out("start time")
+    # out(startTime)
+    # out(format(startTime))
     # print(item["start"])
     # print(type(item["start"]))
-    # output.append(item)
+    # out(item)
 
-# output.append(taskLog)
+# out(taskLog)
     
 # listOfDays = []
 
@@ -231,11 +238,11 @@ for item in taskData:
 # add data to output
 # ------------------
 
-output.append(format(totalTime))
-output.append("")
+out(format(totalTime))
+out("")
 
 for item in taskData:
-    output.append(item)
+    out(item)
 
 
 # Write output
