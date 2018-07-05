@@ -80,7 +80,7 @@ else:
     # end date is six days later
     end_date = start_date + (day_delta * 6)
 
-print("start date: {}\nend date: {}".format(start_date, end_date))
+output.append("start date: {}\nend date: {}".format(start_date, end_date))
 
 start_date_str = format(start_date)
 end_date_str = format(end_date)
@@ -88,23 +88,6 @@ end_date_str = format(end_date)
 # pprint(start_date_str)
 # pprint(end_date_str)
 
-# Set up a list of entries for the selected days
-# ----------------------------------------------
-
-listOfDays = []
-
-date = start_date
-while date <= end_date:
-    # print(date)
-    dayEntry = {}
-    dayEntry["date"] = date
-    dayEntry["report"] = dict()
-    dayEntry["tasks"] = []
-    dayEntry["total time"] = timedelta(0,0,0)
-    listOfDays.append(dayEntry)
-    date += day_delta
-
-# pprint(listOfDays)
 
 # Retrieve data from toggl API
 # ----------------------------
@@ -159,7 +142,7 @@ response = toggl.request("https://toggl.com/reports/api/v2/details",
 # totalTime = response["total_grand"]
 totalTime = timedelta(milliseconds=response["total_grand"])
 
-taskList = response["data"]
+taskData = response["data"]
 
 # response = json.loads(response)
 # print(type(response))
@@ -171,9 +154,57 @@ taskList = response["data"]
     # output.append(item)
     # output.append(response[item])
     
-    
+# Transfer the data to a format I can work with
+# ---------------------------------------------
 
+# Okay, so the steps are:
+# - get a list of projects
+# - prompt for project selection
+# - work through the entries
+#   - if entry project is selected, evaluate
+#   - add entry to data for the day
+
+# So for now, I'll sort the entries first by project, then by date.
+
+# Apart from the dates, one dict entry is reserved for the report.
+
+# Later: do the same with a database!
+
+taskLog = {}
+timeFormat = "%Y-%m-%dT%H:%M:%S%z"
+
+for item in taskData:
+    project = item["project"]
+    taskLog[project] = {}
+    startTime = datetime.strptime(item["start"], timeFormat)
+    output.append("start time")
+    output.append(startTime)
+    output.append(format(startTime))
+    # print(item["start"])
+    # print(type(item["start"]))
+    # output.append(item)
+
+output.append(taskLog)
     
+# listOfDays = []
+
+# date = start_date
+# while date <= end_date:
+    # # print(date)
+    # dayEntry = {}
+    # dayEntry["date"] = date
+    # dayEntry["report"] = dict()
+    # dayEntry["tasks"] = []
+    # dayEntry["total time"] = timedelta(0,0,0)
+    # listOfDays.append(dayEntry)
+    # date += day_delta
+
+# pprint(listOfDays)
+ 
+
+# First, set up a dict of the entire task list.
+ 
+ 
 # Then set up project selection from the retrieved data.
 
 # If there's no report, prompt for one.
@@ -186,9 +217,9 @@ taskList = response["data"]
 # add data to output
 # ------------------
 
-output.append(totalTime)
+output.append(format(totalTime))
 
-for item in taskList:
+for item in taskData:
     output.append(item)
 
 
@@ -210,12 +241,13 @@ outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
                 "w", encoding="utf-8")
 # outfile.write(format(response))
 for item in output:
-    outfile.write(format(item))
+    pprint(item,outfile)
+    # outfile.write(format(item))
     # try:
         # outfile.write(item)
     # except:
         # outfile.write(format(item))
-    outfile.write("\n")
+    # outfile.write("\n")
 outfile.close()
 
 # The actual outfile will be formatted using the dates evaluated.
