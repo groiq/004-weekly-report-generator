@@ -85,8 +85,8 @@ print("start date: {}\nend date: {}".format(start_date, end_date))
 start_date_str = format(start_date)
 end_date_str = format(end_date)
 
-pprint(start_date_str)
-pprint(end_date_str)
+# pprint(start_date_str)
+# pprint(end_date_str)
 
 # Set up a list of entries for the selected days
 # ----------------------------------------------
@@ -120,7 +120,7 @@ id_vals = {}
 
 id_file = open(id_path, "r", encoding="utf-8")
 id_path = id_file.readline().strip()
-print(id_path)
+# print(id_path)
 id_file = open(id_path, "r", encoding="utf-8")
 for line in id_file:
     line = line.strip().split("::")
@@ -143,16 +143,32 @@ request_params = {
                 "until": end_date_str,
                 }
     
+# fetch data via API call
 response = toggl.request("https://toggl.com/reports/api/v2/details", 
             parameters=request_params)
 
-# pprint(response)
+# temporary: read data from local file
+# infile = open("{}wochenbericht_temp_input.txt".format(id_vals["outpath"]), 
+                # "r", encoding="utf-8")
+# response = infile.read()
+# infile.close()
 
-for item in response:
-    output.append(item)
-    output.append(response[item])
+# Extract data
+# ------------
+
+response = response["data"]
+
+# response = json.loads(response)
+print(type(response))
+
+               
+# pprint(response)
+# output.append(response)
+# for item in response:
+    # output.append(item)
+    # output.append(response[item])
     
-# Then have the program retrieve data.
+    
 # Then set up project selection from the retrieved data.
 
 # If there's no report, prompt for one.
@@ -160,6 +176,10 @@ for item in response:
 # Move the "set up list of entries" code down past the retrieve part
 
 
+
+
+# add data to output
+# ------------------
 
 
 
