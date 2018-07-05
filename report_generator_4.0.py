@@ -184,28 +184,28 @@ out(taskLog)
 out("")
 
 for item in taskData:
-    out(item)
-    project = item["project"]
-    taskLog[project] = dict()
-    dateStr = item["start"][0:10]
-    out(dateStr)
+    # out(item)
+    projectName = item["project"]
+    # out(projectName)
+    if projectName in taskLog:
+        projectDict = taskLog[projectName]
+    else:
+        projectDict = dict()
+        taskLog[projectName] = projectDict
+    # dateStr = item["start"][0:10]
+    # if not dateStr in projectDict:
+        # projectDict[dateStr] = "hello"
+
     startTime = datetime.strptime(item["start"], timeFormat)
     endTime = datetime.strptime(item["end"], timeFormat)
     date = startTime.date()
-    if not dateStr in taskLog[project]:
-        taskLog[project][dateStr] = list()
-    out("--------------------")
-    out(taskLog)
-    out(taskLog[project])
-    out("")
-    # out("start time")
-    # out(startTime)
-    # out(format(startTime))
-    # print(item["start"])
-    # print(type(item["start"]))
-    # out(item)
+    if not date in projectDict:
+        projectDict[date] = ["hello"]
+    else:
+        projectDict[date].append("hello")
+    # out(taskLog)
 
-# out(taskLog)
+out(taskLog)
     
 # listOfDays = []
 
@@ -241,8 +241,8 @@ for item in taskData:
 out(format(totalTime))
 out("")
 
-for item in taskData:
-    out(item)
+# for item in taskData:
+    # out(item)
 
 
 # Write output
