@@ -80,8 +80,8 @@ else:
     # end date is six days later
     end_date = start_date + (day_delta * 6)
 
-output.append("start date: {}\nend date: {}".format(start_date, end_date))
-
+output.append("start date: {}; end date: {}".format(start_date, end_date))
+output.append("")
 start_date_str = format(start_date)
 end_date_str = format(end_date)
 
@@ -170,21 +170,30 @@ taskData = response["data"]
 
 # Later: do the same with a database!
 
-taskLog = {}
+taskLog = dict()
 timeFormat = "%Y-%m-%dT%H:%M:%S%z"
+output.append(taskLog)
+output.append("")
 
 for item in taskData:
+    output.append(item)
     project = item["project"]
     taskLog[project] = {}
     startTime = datetime.strptime(item["start"], timeFormat)
-    output.append("start time")
-    output.append(startTime)
-    output.append(format(startTime))
+    endTime = datetime.strptime(item["end"], timeFormat)
+    date = startTime.date()
+    taskLog[project][date] = []
+    output.append("--------------------")
+    output.append(taskLog)
+    output.append("")
+    # output.append("start time")
+    # output.append(startTime)
+    # output.append(format(startTime))
     # print(item["start"])
     # print(type(item["start"]))
     # output.append(item)
 
-output.append(taskLog)
+# output.append(taskLog)
     
 # listOfDays = []
 
@@ -218,6 +227,7 @@ output.append(taskLog)
 # ------------------
 
 output.append(format(totalTime))
+output.append("")
 
 for item in taskData:
     output.append(item)
@@ -242,6 +252,8 @@ outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
 # outfile.write(format(response))
 for item in output:
     pprint(item,outfile)
+    if not item:
+        outfile.write("\n")
     # outfile.write(format(item))
     # try:
         # outfile.write(item)
