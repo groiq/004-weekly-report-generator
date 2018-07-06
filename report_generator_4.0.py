@@ -11,6 +11,17 @@ from datetime import date,datetime,timedelta
 output = list()
 errlog = list()
 
+# outfile for interim test
+testOutput = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
+                "w", encoding="utf-8")
+def out(item):
+    if item:
+        pprint(item,testOutput)
+    else:
+        outfile.write("\n")
+
+
+
 # Parameters
 # ----------
 
@@ -115,15 +126,6 @@ for line in id_file:
 # pprint(id_vals)
 
 toggl.setAPIKey(id_vals["token"])
-
-# outfile for interim test
-outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
-                "w", encoding="utf-8")
-def out(item):
-    if item:
-        pprint(item,outfile)
-    else:
-        outfile.write("\n")
 
 
 # for workspace in toggl.getWorkspaces():
@@ -289,44 +291,25 @@ for date in sorted(taskLog["reports"]):
         print("Please write a report for {}:".format(date))
         report = dict()
         report["smiley"] = input("smiley: ")
+        while not report["smiley"]:
+            report["smiley"] = input("Error: Please enter smiley again. ")
         report["comment"] = input("comment: ")
+        while not report["comment"]:
+            report["comment"] = input("Error: Please enter comment again. ")
         taskLog["reports"][date] = report
-    out(date)
-    out(report)
     
-
-# for dateKey in taskLog["report"]:
-    # dateEntry = taskLog["report"][dateKey]
-    # out(dateKey)
-    # out(dateEntry)
-    
-    
-# Next, extract timelogs for the selected projects.
-
-
-# Then, create a "reports" entry in the taskList dict.
-
-
-# If there's no report, prompt for one.
-
-# Move the "set up list of entries" code down past the retrieve part
-
-
-
-
-# add data to output
+# test output
 # ------------------
 
 out(taskLog)
 out(format(totalTime))
 out("")
 
-# for item in taskData:
-    # out(item)
-
-
 # Write output
 # ------------
+
+
+outputFile = open("{}weekly_report_{}_to_{}.txt".format(
 
 
 # outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
