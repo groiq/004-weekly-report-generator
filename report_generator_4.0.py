@@ -212,7 +212,7 @@ for item in taskData:
         # out("{}: {}".format(field,taskEntry[field]))
     
     # out(taskLog)
-out(taskLog)
+# out(taskLog)
 projects = tuple(taskLog.keys())
 out(projects)
 
@@ -233,10 +233,61 @@ if args.interactive:
 else:
     selectedProjects = ("Organisation","Programmieren")
     
+reportFilePath = "{}{}".format(id_vals["outpath"],id_vals["reportFile"])
+reportSource = open(reportFilePath, "r", encoding="utf-8")
 
+# Make a list of daily reports
 
+taskLog["reports"] = dict()
+for project in selectedProjects:
+    for date in taskLog[project]:
+        taskLog["reports"][date] = dict()
+        # since the dicts aren't filled until later,
+        # it doesn't matter if we overwrite one that's already there.
+
+# make a sorted list of dates
+taskLog["workDays"] = list()
+# for date in 
+        
+# fill daily reports from a manual log file
+        
+import re
+
+report_regex = r""" 
+        \s* bbb \s* 
+        (\d{2}-\d{2}-\d{2}) # Datum
+        \s+ (?: - \s+ )?
+        (:-[)/(])               # Befindlichkeit
+        \s+ (?: - \s+ )?
+        ( .+? )                 # Kommentar
+        (?: \s* ccc )?
+        \s*$
+        """
     
-# Next - fetch reports for the relevant days.
+for line in reportSource:
+    if not "bbb" in line:
+        continue
+    # out(line)
+    # outfile.write(line)
+    eval = re.match(report_regex, line, re.X)
+    if not eval:
+        out("apparent malformed line:")
+        out(line)
+        continue
+    date =  datetime.strptime(eval.group(1), "%y-%m-%d").date()
+    if date in taskLog["reports"]:
+        dateReport = taskLog["reports"][date]
+    else:
+        continue
+    dateReport["smiley"] = eval.group(2)
+    dateReport["comment"] = eval.group(3)
+    
+# prompt for missing daily reports
+
+# for dateKey in taskLog["report"]:
+    # dateEntry = taskLog["report"][dateKey]
+    # out(dateKey)
+    # out(dateEntry)
     
     
 # Next, extract timelogs for the selected projects.
@@ -255,6 +306,7 @@ else:
 # add data to output
 # ------------------
 
+out(taskLog)
 out(format(totalTime))
 out("")
 
@@ -265,16 +317,6 @@ out("")
 # Write output
 # ------------
 
-if errlog:
-    errfile = open("{}errlog.txt".format(id_vals["outpath"]), "w", 
-                    encoding="utf-8")
-    for entry in errlog:
-        try:
-            errfile.write(entry)
-        except:
-            errfile.write(format(entry))
-        errfile.write("\n")
-    errfile.close()
 
 # outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
                 # "w", encoding="utf-8")
