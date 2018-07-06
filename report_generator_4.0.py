@@ -218,6 +218,7 @@ for item in taskData:
     taskEntry["description"] = item["description"]
     # out(taskEntry["description"])
     taskEntry["duration"] = timedelta(milliseconds = item["dur"])
+    timesByProject[projectName] += taskEntry["duration"]
     # for field in taskEntry:
         # out("{}: {}".format(field,taskEntry[field]))
     
@@ -246,6 +247,8 @@ else:
 reportFilePath = "{}{}".format(id_vals["outpath"],id_vals["reportFile"])
 reportSource = open(reportFilePath, "r", encoding="utf-8")
 
+
+
 # Make a list of daily reports
 
 reports = dict()
@@ -255,7 +258,12 @@ for project in selectedProjects:
         # since the dicts aren't filled until later,
         # it doesn't matter if we overwrite one that's already there.
 
-
+# calculate total time
+totalTime = timedelta(0,0,0)
+for project in selectedProjects:
+    totalTime += timesByProject[project]
+        
+        
 # fill daily reports from a manual log file
         
 import re
@@ -310,6 +318,7 @@ for date in sorted(reports):
 # ------------------
 
 out(timesByProject)
+out(totalTime)
 out(taskLog)
 out(reports)
 # print(taskLog)
