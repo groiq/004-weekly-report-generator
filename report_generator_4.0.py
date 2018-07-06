@@ -11,16 +11,6 @@ from datetime import date,datetime,timedelta
 output = list()
 errlog = list()
 
-# outfile for interim test
-testOutput = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
-                "w", encoding="utf-8")
-def out(item):
-    if item:
-        pprint(item,testOutput)
-    else:
-        outfile.write("\n")
-
-
 
 # Parameters
 # ----------
@@ -102,10 +92,10 @@ end_date_str = format(end_date)
 # pprint(end_date_str)
 
 
-# Retrieve data from toggl API
-# ----------------------------
 
 # https://github.com/matthewdowney/TogglPy
+
+
     
 import json 
 from TogglPy import Toggl
@@ -126,6 +116,20 @@ for line in id_file:
 # pprint(id_vals)
 
 toggl.setAPIKey(id_vals["token"])
+
+# outfile for interim test
+testOutput = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
+                "w", encoding="utf-8")
+def out(item):
+    if item:
+        pprint(item,testOutput)
+    else:
+        testOutput.write("\n")
+
+
+# Retrieve data from toggl API
+# ----------------------------
+
 
 
 # for workspace in toggl.getWorkspaces():
@@ -152,7 +156,7 @@ response = toggl.request("https://toggl.com/reports/api/v2/details",
 # ------------
 
 # totalTime = response["total_grand"]
-totalTime = timedelta(milliseconds=response["total_grand"])
+# totalTime = timedelta(milliseconds=response["total_grand"])
 
 taskData = response["data"]
 
@@ -185,6 +189,7 @@ taskData = response["data"]
 # out(taskData)
 out("")
 taskLog = dict()
+
 timeFormat = "%Y-%m-%dT%H:%M:%S%z"
 out(taskLog)
 out("")
@@ -198,6 +203,7 @@ for item in taskData:
     else:
         projectDict = dict()
         taskLog[projectName] = projectDict
+        # projectDict["totalTime"] = timedelta(0,0,0)
 
     startTime = datetime.strptime(item["start"], timeFormat)
     # endTime = datetime.strptime(item["end"], timeFormat)
@@ -209,6 +215,7 @@ for item in taskData:
     taskEntry["start"] = startTime.time()
     taskEntry["end"] = datetime.strptime(item["end"],timeFormat).time()
     taskEntry["description"] = item["description"]
+    # out(taskEntry["description"])
     taskEntry["duration"] = timedelta(milliseconds = item["dur"])
     # for field in taskEntry:
         # out("{}: {}".format(field,taskEntry[field]))
@@ -283,7 +290,7 @@ for line in reportSource:
     
 # prompt for missing daily reports
 
-
+# out(taskLog)
 
 for date in sorted(taskLog["reports"]):
     report = taskLog["reports"][date]
@@ -302,14 +309,38 @@ for date in sorted(taskLog["reports"]):
 # ------------------
 
 out(taskLog)
-out(format(totalTime))
+# print(taskLog)
+# out(format(totalTime))
 out("")
 
 # Write output
 # ------------
 
+outputPath = "{}weekly_report_{}_to_{}.txt".format(id_vals["outpath"],
+                                                    start_date,
+                                                    end_date)
+                                                    
+print(outputPath)
+outfile = open(outputPath, "w", encoding="utf-8")
 
-outputFile = open("{}weekly_report_{}_to_{}.txt".format(
+def l():
+    outfile.write("\n")
+
+def sep():
+    outfile.write("\n{}\n\n".format("=" * 60))
+    
+sep()
+title = "WEEKLY REPORT - {} - {}".format(start_date,end_date)
+outfile.write(title)
+l()
+outfile.write("=" * len(title))
+l()
+l()
+
+# outfile.write("Total time: {}\n".format(totalTime))
+sep()
+
+
 
 
 # outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
