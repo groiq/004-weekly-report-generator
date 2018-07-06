@@ -245,10 +245,7 @@ for project in selectedProjects:
         # since the dicts aren't filled until later,
         # it doesn't matter if we overwrite one that's already there.
 
-# make a sorted list of dates
-taskLog["workDays"] = list()
-# for date in 
-        
+
 # fill daily reports from a manual log file
         
 import re
@@ -283,6 +280,20 @@ for line in reportSource:
     dateReport["comment"] = eval.group(3)
     
 # prompt for missing daily reports
+
+
+
+for date in sorted(taskLog["reports"]):
+    report = taskLog["reports"][date]
+    if not report:
+        print("Please write a report for {}:".format(date))
+        report = dict()
+        report["smiley"] = input("smiley: ")
+        report["comment"] = input("comment: ")
+        taskLog["reports"][date] = report
+    out(date)
+    out(report)
+    
 
 # for dateKey in taskLog["report"]:
     # dateEntry = taskLog["report"][dateKey]
