@@ -28,39 +28,39 @@ args = parser.parse_args()
 
 day_delta = timedelta(1,0,0)
 
-# Methods for prompting for dates. These are repeated if there are issues
-# with the input.
-def dateInput():
-    result = date.today()
-    components = { "year": result.year, "month": result.month, 
-                    "day": result.day }
-    for component in components:
-        components[component] = datePartInput(component,components)
-    if components["year"] < 100:
-        components["year"] += 2000
-    try:
-        result = date(components["year"], components["month"], 
-                    components["day"])
-    except:
-        print(components)
-        print("Something went wrong with building the date. Retry.")
-        result = dateInput()
-    return result
-    
-def datePartInput(prompt: str,components: dict):
-    result = input("{} : ".format(prompt))
-    if result:
-        try:
-            result = int(result)
-        except:
-            print("Couldn't parse input. Please retry.")
-            result = datePartInput(prompt)
-    else:
-        print("Input empty. Defaulting to current {}.".format(prompt))
-        result = components[prompt]
-    return result
     
 if args.interactive:
+    # Methods for prompting for dates. These are repeated if there are issues
+    # with the input.
+    def dateInput():
+        result = date.today()
+        components = { "year": result.year, "month": result.month, 
+                        "day": result.day }
+        for component in components:
+            components[component] = datePartInput(component,components)
+        if components["year"] < 100:
+            components["year"] += 2000
+        try:
+            result = date(components["year"], components["month"], 
+                        components["day"])
+        except:
+            print(components)
+            print("Something went wrong with building the date. Retry.")
+            result = dateInput()
+        return result
+        
+    def datePartInput(prompt: str,components: dict):
+        result = input("{} : ".format(prompt))
+        if result:
+            try:
+                result = int(result)
+            except:
+                print("Couldn't parse input. Please retry.")
+                result = datePartInput(prompt)
+        else:
+            print("Input empty. Defaulting to current {}.".format(prompt))
+            result = components[prompt]
+        return result
     print("Select evaluated time range by giving the first and last day.")
     print("Leave lines blank for current year/month.")
     print("first date:")
@@ -72,6 +72,8 @@ if args.interactive:
         dummy_date = start_date
         start_date = end_date
         end_date = dummy_date
+    print("Start date: {}".format(start_date))
+    print("end date: {}".format(end_date))
 else:
     # set start_date to this monday...
     start_date = date.today() - (date.weekday(date.today()) * day_delta)
@@ -178,6 +180,8 @@ taskData = response["data"]
 
 # Later: do the same with a database!
 
+# out(taskData)
+out("")
 taskLog = dict()
 timeFormat = "%Y-%m-%dT%H:%M:%S%z"
 out(taskLog)
@@ -192,41 +196,54 @@ for item in taskData:
     else:
         projectDict = dict()
         taskLog[projectName] = projectDict
-    # dateStr = item["start"][0:10]
-    # if not dateStr in projectDict:
-        # projectDict[dateStr] = "hello"
 
     startTime = datetime.strptime(item["start"], timeFormat)
-    endTime = datetime.strptime(item["end"], timeFormat)
+    # endTime = datetime.strptime(item["end"], timeFormat)
     date = startTime.date()
     if not date in projectDict:
-        projectDict[date] = ["hello"]
-    else:
-        projectDict[date].append("hello")
-    # out(taskLog)
-
-out(taskLog)
+        projectDict[date] = []
+    taskEntry = dict()
+    projectDict[date].append(taskEntry)
+    taskEntry["start"] = startTime.time()
+    taskEntry["end"] = datetime.strptime(item["end"],timeFormat).time()
+    taskEntry["description"] = item["description"]
+    taskEntry["duration"] = timedelta(milliseconds = item["dur"])
+    # for field in taskEntry:
+        # out("{}: {}".format(field,taskEntry[field]))
     
-# listOfDays = []
+    # out(taskLog)
+out(taskLog)
+projects = tuple(taskLog.keys())
+out(projects)
 
-# date = start_date
-# while date <= end_date:
-    # # print(date)
-    # dayEntry = {}
-    # dayEntry["date"] = date
-    # dayEntry["report"] = dict()
-    # dayEntry["tasks"] = []
-    # dayEntry["total time"] = timedelta(0,0,0)
-    # listOfDays.append(dayEntry)
-    # date += day_delta
+if args.interactive:
+    def projectSelection(projects):
+        returnString = str()
+        for item in projects:
+            returnString += "{} {}\n".format(projects.index(item), item)
+        return returnString
+    print("Select projects to be evaluated. Type the respective numbers:")
+    promptForSelection = input(format(projectSelection(projects)))
+    selectedProjects = []
+    for i in range(len(projects)):
+        if format(i) in promptForSelection:
+            selectedProjects.append(projects[i])
+    print("selected projects:")
+    print(selectedProjects)
+else:
+    selectedProjects = ("Organisation","Programmieren")
+    
 
-# pprint(listOfDays)
- 
 
-# First, set up a dict of the entire task list.
- 
- 
-# Then set up project selection from the retrieved data.
+    
+# Next - fetch reports for the relevant days.
+    
+    
+# Next, extract timelogs for the selected projects.
+
+
+# Then, create a "reports" entry in the taskList dict.
+
 
 # If there's no report, prompt for one.
 
