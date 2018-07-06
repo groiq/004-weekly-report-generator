@@ -121,7 +121,7 @@ toggl.setAPIKey(id_vals["token"])
 testOutput = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
                 "w", encoding="utf-8")
 def out(item):
-    if item:
+    if item != "":
         pprint(item,testOutput)
     else:
         testOutput.write("\n")
@@ -187,12 +187,12 @@ taskData = response["data"]
 # Later: do the same with a database!
 
 # out(taskData)
-out("")
+# out("")
 taskLog = dict()
-
+timesByProject = dict()
 timeFormat = "%Y-%m-%dT%H:%M:%S%z"
-out(taskLog)
-out("")
+# out(taskLog)
+# out("")
 
 for item in taskData:
     # out(item)
@@ -203,6 +203,7 @@ for item in taskData:
     else:
         projectDict = dict()
         taskLog[projectName] = projectDict
+        timesByProject[projectName] = timedelta(0,0,0)
         # projectDict["totalTime"] = timedelta(0,0,0)
 
     startTime = datetime.strptime(item["start"], timeFormat)
@@ -247,10 +248,10 @@ reportSource = open(reportFilePath, "r", encoding="utf-8")
 
 # Make a list of daily reports
 
-taskLog["reports"] = dict()
+reports = dict()
 for project in selectedProjects:
     for date in taskLog[project]:
-        taskLog["reports"][date] = dict()
+        reports[date] = dict()
         # since the dicts aren't filled until later,
         # it doesn't matter if we overwrite one that's already there.
 
@@ -281,8 +282,8 @@ for line in reportSource:
         out(line)
         continue
     date =  datetime.strptime(eval.group(1), "%y-%m-%d").date()
-    if date in taskLog["reports"]:
-        dateReport = taskLog["reports"][date]
+    if date in reports:
+        dateReport = reports[date]
     else:
         continue
     dateReport["smiley"] = eval.group(2)
@@ -292,8 +293,8 @@ for line in reportSource:
 
 # out(taskLog)
 
-for date in sorted(taskLog["reports"]):
-    report = taskLog["reports"][date]
+for date in sorted(reports):
+    report = reports[date]
     if not report:
         print("Please write a report for {}:".format(date))
         report = dict()
@@ -303,12 +304,14 @@ for date in sorted(taskLog["reports"]):
         report["comment"] = input("comment: ")
         while not report["comment"]:
             report["comment"] = input("Error: Please enter comment again. ")
-        taskLog["reports"][date] = report
+        reports[date] = report
     
 # test output
 # ------------------
 
+out(timesByProject)
 out(taskLog)
+out(reports)
 # print(taskLog)
 # out(format(totalTime))
 out("")
@@ -341,6 +344,23 @@ l()
 sep()
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# NEXT - sanitize data: reports should be stored outside of the main dict
+# THEN - make a dict for total times by project
 
 
 # outfile = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
