@@ -380,6 +380,8 @@ l()
 # outfile.write("Total time: {}\n".format(totalTime))
 sep()
 fieldOrder = ("description","start","end","duration")
+# print task fields in right order. (Why does this work out-of-the-box)
+# in version 3?
 
 for date in reports:
     
