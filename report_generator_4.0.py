@@ -264,10 +264,18 @@ for project in selectedProjects:
     totalTime += timesByProject[project]
 
 # out(totalTime)
+print(totalTime)
 # totalTime -= totalTime.days
 # out(format(totalTime))
 # fullDays = totalTime.days
 # totalTime = totalTime.seconds
+s = totalTime.seconds
+hrs = s // 3600
+s = s - (hrs * 3600)
+mins = s // 60
+hrs = hrs + (totalTime.days * 24)
+
+totalTime = "{} hrs {} mins".format(hrs,mins)
 
 out(totalTime)
 print(totalTime)
@@ -326,10 +334,17 @@ for date in sorted(reports):
 # test output
 # ------------------
 
+out("\ntimesByProject")
 out(timesByProject)
+out("")
+out("\ntotalTime")
 out(totalTime)
-out(taskLog)
+out("")
+out("\nreports")
 out(reports)
+out("")
+out("\ntaskLog")
+out(taskLog)
 # print(taskLog)
 # out(format(totalTime))
 out("")
@@ -343,6 +358,7 @@ outputPath = "{}weekly_report_{}_to_{}.txt".format(id_vals["outpath"],
                                                     
 print(outputPath)
 outfile = open(outputPath, "w", encoding="utf-8")
+output = outfile    # I keep writing "output" by mistake
 
 def l():
     outfile.write("\n")
@@ -363,8 +379,35 @@ l()
 
 # outfile.write("Total time: {}\n".format(totalTime))
 sep()
+fieldOrder = ("description","start","end","duration")
 
+for date in reports:
+    
+    # outfile.write(date)
+    outfile.write("{}\n\n".format(date.strftime("%a %d. %m. %y")))
+    outfile.write("smiley: {}\n".format(reports[date]["smiley"]))
+    outfile.write("comment: {}\n".format(reports[date]["comment"]))
+    
+    # for item in reports[date]:
+        # outfile.write("{}: {}\n".format(item,reports[date][item]))
+    outfile.write("\nTasks:\n")
+    
+    for project in taskLog:
+        if not date in taskLog[project]:
+            continue
+        for task in taskLog[project][date]:
+            
+            outfile.write("---\n")
+            outfile.write("project: {}\n".format(project))
+            # outfile.write("description: {}\n".format(task[description]))
+            
+            for field in fieldOrder:
+                outfile.write("{}: {}\n".format(field, task[field]))
+            
+            # outfile.write(format(task))
 
+    
+    sep()
 
 
 
