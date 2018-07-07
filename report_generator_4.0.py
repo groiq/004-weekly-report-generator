@@ -262,7 +262,16 @@ for project in selectedProjects:
 totalTime = timedelta(0,0,0)
 for project in selectedProjects:
     totalTime += timesByProject[project]
-        
+
+# out(totalTime)
+# totalTime -= totalTime.days
+# out(format(totalTime))
+# fullDays = totalTime.days
+# totalTime = totalTime.seconds
+
+out(totalTime)
+print(totalTime)
+# print("{}h{}min".format(totalTime.hours,totalTime.minutes))
         
 # fill daily reports from a manual log file
         
@@ -342,11 +351,14 @@ def sep():
     outfile.write("\n{}\n\n".format("=" * 60))
     
 sep()
-title = "WEEKLY REPORT - {} - {}".format(start_date,end_date)
+title = "WEEKLY REPORT - {} - {}\n".format(start_date,end_date)
 outfile.write(title)
-l()
-outfile.write("=" * len(title))
-l()
+# l()
+# outfile.write("=" * len(title))
+# l()
+outfile.write("Total time: ")
+outfile.write(format(totalTime))
+
 l()
 
 # outfile.write("Total time: {}\n".format(totalTime))
