@@ -1,4 +1,4 @@
-#!/usr/bin/ env python3
+#!/usr/bin/env python3
 
 # Imports
 # -------
@@ -78,8 +78,10 @@ if args.interactive:
 else:
     # set start_date to this monday...
     start_date = date.today() - (date.weekday(date.today()) * day_delta)
+    # print(start_date)
     # ...and go a week back
     start_date = start_date - (day_delta * 7)
+    # print(start_date)
     # end date is six days later
     end_date = start_date + (day_delta * 6)
 
@@ -383,7 +385,7 @@ fieldOrder = ("description","start","end","duration")
 # print task fields in right order. (Why does this work out-of-the-box)
 # in version 3?
 
-for date in reports:
+for date in sorted(reports):
     
     # outfile.write(date)
     outfile.write("{}\n\n".format(date.strftime("%a %d. %m. %y")))
@@ -393,6 +395,7 @@ for date in reports:
     # for item in reports[date]:
         # outfile.write("{}: {}\n".format(item,reports[date][item]))
     outfile.write("\nTasks:\n")
+    dailyTime = timedelta(0,0,0)
     
     for project in taskLog:
         if not date in taskLog[project]:
@@ -402,11 +405,13 @@ for date in reports:
             outfile.write("---\n")
             outfile.write("project: {}\n".format(project))
             # outfile.write("description: {}\n".format(task[description]))
+            dailyTime += task["duration"]
             
             for field in fieldOrder:
                 outfile.write("{}: {}\n".format(field, task[field]))
             
             # outfile.write(format(task))
+        outfile.write("\nTotal time: {}\n".format(dailyTime))
 
     
     sep()
