@@ -1,0 +1,52 @@
+{'classroom': {'mon': ['cm0', 'cm1'],
+               'tue': ['ct0', 'ct1'],
+               'wed': ['cw0', 'cw1']},
+ 'desk': {'mon': ['dm0', 'dm1'], 'tue': ['dt0', 'dt1'], 'wed': ['dw0', 'dw1']},
+ 'library': {'mon': ['lm0', 'lm1'],
+             'tue': ['lt0', 'lt1'],
+             'wed': ['lw0', 'lw1']}}
+
+{'mon': {'classroom': ['cm0', 'cm1']}}
+{'mon': {'classroom': ['cm0', 'cm1']}, 'tue': {'classroom': ['ct0', 'ct1']}}
+{'mon': {'classroom': ['cm0', 'cm1']},
+ 'tue': {'classroom': ['ct0', 'ct1']},
+ 'wed': {'classroom': ['cw0', 'cw1']}}
+{'mon': {'classroom': ['cm0', 'cm1'], 'desk': ['dm0', 'dm1']},
+ 'tue': {'classroom': ['ct0', 'ct1']},
+ 'wed': {'classroom': ['cw0', 'cw1']}}
+{'mon': {'classroom': ['cm0', 'cm1'], 'desk': ['dm0', 'dm1']},
+ 'tue': {'classroom': ['ct0', 'ct1'], 'desk': ['dt0', 'dt1']},
+ 'wed': {'classroom': ['cw0', 'cw1']}}
+{'mon': {'classroom': ['cm0', 'cm1'], 'desk': ['dm0', 'dm1']},
+ 'tue': {'classroom': ['ct0', 'ct1'], 'desk': ['dt0', 'dt1']},
+ 'wed': {'classroom': ['cw0', 'cw1'], 'desk': ['dw0', 'dw1']}}
+{'mon': {'classroom': ['cm0', 'cm1'],
+         'desk': ['dm0', 'dm1'],
+         'library': ['lm0', 'lm1']},
+ 'tue': {'classroom': ['ct0', 'ct1'], 'desk': ['dt0', 'dt1']},
+ 'wed': {'classroom': ['cw0', 'cw1'], 'desk': ['dw0', 'dw1']}}
+{'mon': {'classroom': ['cm0', 'cm1'],
+         'desk': ['dm0', 'dm1'],
+         'library': ['lm0', 'lm1']},
+ 'tue': {'classroom': ['ct0', 'ct1'],
+         'desk': ['dt0', 'dt1'],
+         'library': ['lt0', 'lt1']},
+ 'wed': {'classroom': ['cw0', 'cw1'], 'desk': ['dw0', 'dw1']}}
+{'mon': {'classroom': ['cm0', 'cm1'],
+         'desk': ['dm0', 'dm1'],
+         'library': ['lm0', 'lm1']},
+ 'tue': {'classroom': ['ct0', 'ct1'],
+         'desk': ['dt0', 'dt1'],
+         'library': ['lt0', 'lt1']},
+ 'wed': {'classroom': ['cw0', 'cw1'],
+         'desk': ['dw0', 'dw1'],
+         'library': ['lw0', 'lw1']}}
+{'mon': {'classroom': ['cm0', 'cm1'],
+         'desk': ['dm0', 'dm1'],
+         'library': ['lm0', 'lm1']},
+ 'tue': {'classroom': ['ct0', 'ct1'],
+         'desk': ['dt0', 'dt1'],
+         'library': ['lt0', 'lt1']},
+ 'wed': {'classroom': ['cw0', 'cw1'],
+         'desk': ['dw0', 'dw1'],
+         'library': ['lw0', 'lw1']}}
