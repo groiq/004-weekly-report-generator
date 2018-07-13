@@ -120,13 +120,13 @@ for line in id_file:
 toggl.setAPIKey(id_vals["token"])
 
 # outfile for interim test
-testOutput = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
-                "w", encoding="utf-8")
-def out(item):
-    if item != "":
-        pprint(item,testOutput)
-    else:
-        testOutput.write("\n")
+# testOutput = open("{}wochenbericht_no_date.txt".format(id_vals["outpath"]),
+                # "w", encoding="utf-8")
+# def out(item):
+    # if item != "":
+        # pprint(item,testOutput)
+    # else:
+        # testOutput.write("\n")
 
 
 # Retrieve data from toggl API
@@ -227,7 +227,7 @@ for item in taskData:
     # out(taskLog)
 # out(taskLog)
 projects = tuple(taskLog.keys())
-out(projects)
+# out(projects)
 
 if args.interactive:
     def projectSelection(projects):
@@ -266,7 +266,7 @@ for project in selectedProjects:
     totalTime += timesByProject[project]
 
 # out(totalTime)
-print(totalTime)
+# print(totalTime)
 # totalTime -= totalTime.days
 # out(format(totalTime))
 # fullDays = totalTime.days
@@ -279,8 +279,8 @@ hrs = hrs + (totalTime.days * 24)
 
 totalTime = "{} hrs {} mins".format(hrs,mins)
 
-out(totalTime)
-print(totalTime)
+# out(totalTime)
+# print(totalTime)
 # print("{}h{}min".format(totalTime.hours,totalTime.minutes))
         
 # fill daily reports from a manual log file
@@ -305,8 +305,8 @@ for line in reportSource:
     # outfile.write(line)
     eval = re.match(report_regex, line, re.X)
     if not eval:
-        out("apparent malformed line:")
-        out(line)
+        print("apparent malformed line:")
+        print(line)
         continue
     date =  datetime.strptime(eval.group(1), "%y-%m-%d").date()
     if date in reports:
@@ -336,20 +336,20 @@ for date in sorted(reports):
 # test output
 # ------------------
 
-out("\ntimesByProject")
-out(timesByProject)
-out("")
-out("\ntotalTime")
-out(totalTime)
-out("")
-out("\nreports")
-out(reports)
-out("")
-out("\ntaskLog")
-out(taskLog)
+# out("\ntimesByProject")
+# out(timesByProject)
+# out("")
+# out("\ntotalTime")
+# out(totalTime)
+# out("")
+# out("\nreports")
+# out(reports)
+# out("")
+# out("\ntaskLog")
+# out(taskLog)
 # print(taskLog)
 # out(format(totalTime))
-out("")
+# out("")
 
 # Write output
 # ------------
@@ -358,9 +358,9 @@ outputPath = "{}weekly_report_{}_to_{}.txt".format(id_vals["outpath"],
                                                     start_date,
                                                     end_date)
                                                     
-print(outputPath)
+# print(outputPath)
 outfile = open(outputPath, "w", encoding="utf-8")
-output = outfile    # I keep writing "output" by mistake
+# output = outfile    # I keep writing "output" by mistake
 
 def l():
     outfile.write("\n")
@@ -420,7 +420,7 @@ for date in sorted(reports):
 
 
 
-
+outfile.close()
 
 
 
