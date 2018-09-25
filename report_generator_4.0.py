@@ -315,6 +315,8 @@ for line in reportSource:
         continue
     dateReport["smiley"] = eval.group(2)
     dateReport["comment"] = eval.group(3)
+
+# reportSource.close()
     
 # prompt for missing daily reports
 
