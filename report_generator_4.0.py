@@ -322,6 +322,8 @@ for line in reportSource:
 
 # out(taskLog)
 
+# open reportSource again for appending here. 
+
 for date in sorted(reports):
     report = reports[date]
     if not report:
