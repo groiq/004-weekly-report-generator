@@ -8,8 +8,13 @@ import datetime
 start_date = datetime.date(2018,6,11)
 end_date = datetime.date(2018,9,3)
 
+outfile = open("reportLines.txt","w",encoding="utf-8")
+
 d = start_date
 delta = datetime.timedelta(days=1)
 while d <= end_date:
-    print(d.strftime("%Y-%m-%d"))
+    outfile.write(d.strftime("%Y-%m-%d"))
+    outfile.write("\n")
     d += delta
+    
+outfile.close()
