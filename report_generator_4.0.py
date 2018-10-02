@@ -358,8 +358,10 @@ print(addedReports)
        
 if addedReports:
     reportSource = open(reportFilePath, "a", encoding="utf-8")
+    reportSource.write("reports added on {}:\n".format(date.today()))
+    # for reportLine in addedReports:
 
-    
+    reportSource.write("\n")
     reportSource.close()
     
 # test output
