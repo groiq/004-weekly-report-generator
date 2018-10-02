@@ -323,7 +323,9 @@ reportSource.close()
 
 # out(taskLog)
 
-# 
+# pprint(reports)
+
+
 
 for date in sorted(reports):
     report = reports[date]
@@ -337,6 +339,8 @@ for date in sorted(reports):
         while not report["comment"]:
             report["comment"] = input("Error: Please enter comment again. ")
         reports[date] = report
+        reportLine = "bbb {} {} {}".format(date,report["smiley"],report["comment"])
+        print(reportLine)
     
 # test output
 # ------------------
