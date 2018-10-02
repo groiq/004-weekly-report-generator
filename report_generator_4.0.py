@@ -350,16 +350,17 @@ for date in sorted(reports):
         while not report["comment"]:
             report["comment"] = input("Error: Please enter comment again. ")
         reports[date] = report
-        reportLine = "bbb {} {} {}".format(date,report["smiley"],report["comment"])
+        reportLine = "bbb {} {} {}\n".format(date,report["smiley"],report["comment"])
         # print(reportLine)
         addedReports.append(reportLine)
        
-print(addedReports)
+# print(addedReports)
        
 if addedReports:
     reportSource = open(reportFilePath, "a", encoding="utf-8")
     reportSource.write("reports added on {}:\n".format(date.today()))
-    # for reportLine in addedReports:
+    for reportLine in addedReports:
+        reportSource.write(reportLine)
 
     reportSource.write("\n")
     reportSource.close()
