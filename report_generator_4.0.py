@@ -247,6 +247,7 @@ else:
     selectedProjects = ("Organisation","Programmieren")
     
 reportFilePath = "{}{}".format(id_vals["outpath"],id_vals["reportFile"])
+print(reportFilePath)
 reportSource = open(reportFilePath, "r", encoding="utf-8")
 
 
@@ -362,7 +363,7 @@ outputPath = "{}weekly_report_{}_to_{}.txt".format(id_vals["outpath"],
                                                     start_date,
                                                     end_date)
                                                     
-# print(outputPath)
+print(outputPath)
 outfile = open(outputPath, "w", encoding="utf-8")
 # output = outfile    # I keep writing "output" by mistake
 
