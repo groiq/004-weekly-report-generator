@@ -290,7 +290,7 @@ import re
 
 report_regex = r""" 
         \s* bbb \s* 
-        (\d{2}-\d{2}-\d{2}) # Datum
+        2?0?(\d{2}-\d{2}-\d{2}) # Datum
         \s+ (?: - \s+ )?
         (:-[)/(])               # Befindlichkeit
         \s+ (?: - \s+ )?
