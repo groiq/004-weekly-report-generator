@@ -332,8 +332,10 @@ reportSource.close()
 # One means adding an additional list and looping through the report lines a second time.
 # The other means an additional file handle even if not needed.
 # Unnecessarily opening a file for writing also may be somewhat more risky.
+# Another advantage of using an interim list is that I can block the reports added in one run of the generator.
 
-reportSource = open(reportFilePath, "a", encoding="utf-8")
+addedReports = []
+
 
 
 for date in sorted(reports):
@@ -349,9 +351,16 @@ for date in sorted(reports):
             report["comment"] = input("Error: Please enter comment again. ")
         reports[date] = report
         reportLine = "bbb {} {} {}".format(date,report["smiley"],report["comment"])
-        print(reportLine)
+        # print(reportLine)
+        addedReports.append(reportLine)
+       
+print(addedReports)
+       
+if addedReports:
+    reportSource = open(reportFilePath, "a", encoding="utf-8")
+
     
-reportSource.close()
+    reportSource.close()
     
 # test output
 # ------------------
