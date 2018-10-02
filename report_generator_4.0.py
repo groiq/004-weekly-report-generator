@@ -317,13 +317,13 @@ for line in reportSource:
     dateReport["smiley"] = eval.group(2)
     dateReport["comment"] = eval.group(3)
 
-# reportSource.close()
+reportSource.close()
     
 # prompt for missing daily reports
 
 # out(taskLog)
 
-
+# 
 
 for date in sorted(reports):
     report = reports[date]
