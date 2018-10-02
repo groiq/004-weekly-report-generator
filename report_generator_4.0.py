@@ -246,9 +246,6 @@ if args.interactive:
 else:
     selectedProjects = ("Organisation","Programmieren")
     
-reportFilePath = "{}{}".format(id_vals["outpath"],id_vals["reportFile"])
-# print(reportFilePath)
-reportSource = open(reportFilePath, "r", encoding="utf-8")
 
 
 
@@ -286,6 +283,10 @@ totalTime = "{} hrs {} mins".format(hrs,mins)
         
 # fill daily reports from a manual log file
         
+reportFilePath = "{}{}".format(id_vals["outpath"],id_vals["reportFile"])
+# print(reportFilePath)
+reportSource = open(reportFilePath, "r", encoding="utf-8")
+
 import re
 
 report_regex = r""" 
@@ -331,6 +332,8 @@ reportSource.close()
 # One means adding an additional list and looping through the report lines a second time.
 # The other means an additional file handle even if not needed.
 # Unnecessarily opening a file for writing also may be somewhat more risky.
+
+
 
 for date in sorted(reports):
     report = reports[date]
