@@ -229,23 +229,23 @@ for item in taskData:
 projects = tuple(taskLog.keys())
 # out(projects)
 
-if args.interactive:
-    def projectSelection(projects):
-        returnString = str()
-        for item in projects:
-            returnString += "{} {}\n".format(projects.index(item), item)
-        return returnString
-    print("Select projects to be evaluated. Type the respective numbers:")
-    promptForSelection = input(format(projectSelection(projects)))
-    selectedProjects = []
-    for i in range(len(projects)):
-        if format(i) in promptForSelection:
-            selectedProjects.append(projects[i])
-    print("selected projects:")
-    print(selectedProjects)
-else:
-    selectedProjects = ("Organisation","Programmieren")
-    
+# if args.interactive:
+    # def projectSelection(projects):
+        # returnString = str()
+        # for item in projects:
+            # returnString += "{} {}\n".format(projects.index(item), item)
+        # return returnString
+    # print("Select projects to be evaluated. Type the respective numbers:")
+    # promptForSelection = input(format(projectSelection(projects)))
+    # selectedProjects = []
+    # for i in range(len(projects)):
+        # if format(i) in promptForSelection:
+            # selectedProjects.append(projects[i])
+    # print("selected projects:")
+    # print(selectedProjects)
+# else:
+    # selectedProjects = ("Organisation","Programmieren")
+selectedProjects = ("Organisation","Programmieren")
 
 
 
