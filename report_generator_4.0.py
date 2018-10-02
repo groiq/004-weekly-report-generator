@@ -333,6 +333,7 @@ reportSource.close()
 # The other means an additional file handle even if not needed.
 # Unnecessarily opening a file for writing also may be somewhat more risky.
 
+reportSource = open(reportFilePath, "a", encoding="utf-8")
 
 
 for date in sorted(reports):
@@ -349,6 +350,8 @@ for date in sorted(reports):
         reports[date] = report
         reportLine = "bbb {} {} {}".format(date,report["smiley"],report["comment"])
         print(reportLine)
+    
+reportSource.close()
     
 # test output
 # ------------------
