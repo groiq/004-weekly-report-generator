@@ -325,7 +325,12 @@ reportSource.close()
 
 # pprint(reports)
 
-
+# two ways here:
+# i could save the report lines to a list and *only* reopen the reportSource if the list is true.
+# Or I could *always* reopen the file and insert lines while working through the reports.
+# One means adding an additional list and looping through the report lines a second time.
+# The other means an additional file handle even if not needed.
+# Unnecessarily opening a file for writing also may be somewhat more risky.
 
 for date in sorted(reports):
     report = reports[date]
