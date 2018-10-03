@@ -50,12 +50,25 @@ pprint(id_vals)
 # Date Selection
 # --------------
 
+day_delta = timedelta(1,0,0)
+
 dateStr = "18-06-11"
 testdate = datetime.strptime(dateStr, "%y-%m-%d").date()
 print(testdate)
 
-day_delta = timedelta(1,0,0)
+datePath = "{}oldReportsDate.txt".format(id_vals["outpath"])
+print(datePath)
 
+# read start date here
+
+
+
+
+# write start date back to file
+dateFile = open(datePath, "w", encoding="utf-8")
+dateFile.write(dateStr)
+
+dateFile.close()
 
 #backup: date calculation
 # start_date = date.today() - (date.weekday(date.today()) * day_delta)
