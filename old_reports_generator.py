@@ -103,7 +103,7 @@ import json
 from TogglPy import Toggl
 toggl = Toggl()
 
-id_path = "data/id.txt"
+id_path = "data/old-reports-id.txt"
 id_vals = {}
 
 id_file = open(id_path, "r", encoding="utf-8")
