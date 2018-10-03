@@ -29,71 +29,26 @@ args = parser.parse_args()
 
 day_delta = timedelta(1,0,0)
 
+#backup: date calculation
+# start_date = date.today() - (date.weekday(date.today()) * day_delta)
+# # print(start_date)
+# # ...and go a week back
+# start_date = start_date - (day_delta * 7)
+# # print(start_date)
+# # end date is six days later
+# end_date = start_date + (day_delta * 6)
     
-if args.interactive:
-    # Methods for prompting for dates. These are repeated if there are issues
-    # with the input.
-    def dateInput():
-        result = date.today()
-        components = { "year": result.year, "month": result.month, 
-                        "day": result.day }
-        for component in components:
-            components[component] = datePartInput(component,components)
-        if components["year"] < 100:
-            components["year"] += 2000
-        try:
-            result = date(components["year"], components["month"], 
-                        components["day"])
-        except:
-            print(components)
-            print("Something went wrong with building the date. Retry.")
-            result = dateInput()
-        return result
-        
-    def datePartInput(prompt: str,components: dict):
-        result = input("{} : ".format(prompt))
-        if result:
-            try:
-                result = int(result)
-            except:
-                print("Couldn't parse input. Please retry.")
-                result = datePartInput(prompt)
-        else:
-            print("Input empty. Defaulting to current {}.".format(prompt))
-            result = components[prompt]
-        return result
-    print("Select evaluated time range by giving the first and last day.")
-    print("Leave lines blank for current year/month.")
-    print("first date:")
-    start_date = dateInput()
-    print("last date:")
-    end_date = dateInput()
-    if end_date < start_date:
-        print("End date before start date. Swapping values.")
-        dummy_date = start_date
-        start_date = end_date
-        end_date = dummy_date
-    print("Start date: {}".format(start_date))
-    print("end date: {}".format(end_date))
-else:
-    # set start_date to this monday...
-    start_date = date.today() - (date.weekday(date.today()) * day_delta)
-    # print(start_date)
-    # ...and go a week back
-    start_date = start_date - (day_delta * 7)
-    # print(start_date)
-    # end date is six days later
-    end_date = start_date + (day_delta * 6)
 
+    
 # out("start date: {}; end date: {}".format(start_date, end_date))
 # out("")
-start_date_str = format(start_date)
-end_date_str = format(end_date)
+# start_date_str = format(start_date)
+# end_date_str = format(end_date)
 
 # pprint(start_date_str)
 # pprint(end_date_str)
 
-
+# date =  datetime.strptime(eval.group(1), "%y-%m-%d").date()
 
 # https://github.com/matthewdowney/TogglPy
 
@@ -115,7 +70,37 @@ for line in id_file:
     id_key = line[0]
     id_val = line[1]
     id_vals[id_key] = id_val
-# pprint(id_vals)
+pprint(id_vals)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Uncomment to exit here before accessing toggl's API
+# ---------------------------------------------------
+exit()
+
+
+
+
+
 
 toggl.setAPIKey(id_vals["token"])
 
