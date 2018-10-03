@@ -57,18 +57,25 @@ day_delta = timedelta(1,0,0)
 # print(testdate)
 
 datePath = "{}oldReportsDate.txt".format(id_vals["outpath"])
-print(datePath)
+# print(datePath)
 
 # read start date
 
 start_date_string = open(datePath, "r", encoding="utf-8").read()
-print(start_date_string)
+# print(start_date_string)
 
+start_date = datetime.strptime(start_date_string,"%Y-%m-%d").date()
+end_date = start_date + (day_delta * 6)
 
+print(start_date)
+print(end_date)
 
-# write start date back to file
+# write next start date back to file
+next_start_date = start_date + (day_delta * 7)
+next_start_date_str = format(next_start_date)
+
 dateFile = open(datePath, "w", encoding="utf-8")
-dateFile.write(start_date_string)
+dateFile.write(next_start_date_str)
 
 dateFile.close()
 
