@@ -76,7 +76,9 @@ next_start_date = start_date + (day_delta * 7)
 next_start_date_str = format(next_start_date)
 
 dateFile = open(datePath, "w", encoding="utf-8")
-dateFile.write(next_start_date_str)
+# dateFile.write(next_start_date_str)
+# write old date for test purposes
+dateFile.write(start_date_str)
 
 dateFile.close()
 
