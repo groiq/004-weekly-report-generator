@@ -52,21 +52,23 @@ pprint(id_vals)
 
 day_delta = timedelta(1,0,0)
 
-dateStr = "18-06-11"
-testdate = datetime.strptime(dateStr, "%y-%m-%d").date()
-print(testdate)
+# dateStr = "18-06-11"
+# testdate = datetime.strptime(dateStr, "%y-%m-%d").date()
+# print(testdate)
 
 datePath = "{}oldReportsDate.txt".format(id_vals["outpath"])
 print(datePath)
 
-# read start date here
+# read start date
 
+start_date_string = open(datePath, "r", encoding="utf-8").read()
+print(start_date_string)
 
 
 
 # write start date back to file
 dateFile = open(datePath, "w", encoding="utf-8")
-dateFile.write(dateStr)
+dateFile.write(start_date_string)
 
 dateFile.close()
 
