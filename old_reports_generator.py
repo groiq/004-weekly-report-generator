@@ -24,10 +24,38 @@ parser.add_argument("-m", "--mail", action="store_true",
                     
 args = parser.parse_args()
 
+# https://github.com/matthewdowney/TogglPy
+# ----------------------------------------
+
+    
+import json 
+from TogglPy import Toggl
+toggl = Toggl()
+
+id_path = "data/old-reports-id.txt"
+id_vals = {}
+
+id_file = open(id_path, "r", encoding="utf-8")
+id_path = id_file.readline().strip()
+# print(id_path)
+id_file = open(id_path, "r", encoding="utf-8")
+for line in id_file:
+    line = line.strip().split("::")
+    id_key = line[0]
+    id_val = line[1]
+    id_vals[id_key] = id_val
+pprint(id_vals)
+
+
 # Date Selection
 # --------------
 
+dateStr = "18-06-11"
+testdate = datetime.strptime(dateStr, "%y-%m-%d").date()
+print(testdate)
+
 day_delta = timedelta(1,0,0)
+
 
 #backup: date calculation
 # start_date = date.today() - (date.weekday(date.today()) * day_delta)
@@ -49,29 +77,6 @@ day_delta = timedelta(1,0,0)
 # pprint(end_date_str)
 
 # date =  datetime.strptime(eval.group(1), "%y-%m-%d").date()
-
-# https://github.com/matthewdowney/TogglPy
-
-
-    
-import json 
-from TogglPy import Toggl
-toggl = Toggl()
-
-id_path = "data/old-reports-id.txt"
-id_vals = {}
-
-id_file = open(id_path, "r", encoding="utf-8")
-id_path = id_file.readline().strip()
-# print(id_path)
-id_file = open(id_path, "r", encoding="utf-8")
-for line in id_file:
-    line = line.strip().split("::")
-    id_key = line[0]
-    id_val = line[1]
-    id_vals[id_key] = id_val
-pprint(id_vals)
-
 
 
 
