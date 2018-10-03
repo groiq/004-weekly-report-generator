@@ -44,7 +44,7 @@ for line in id_file:
     id_key = line[0]
     id_val = line[1]
     id_vals[id_key] = id_val
-pprint(id_vals)
+# pprint(id_vals)
 
 
 # Date Selection
@@ -61,14 +61,15 @@ datePath = "{}oldReportsDate.txt".format(id_vals["outpath"])
 
 # read start date
 
-start_date_string = open(datePath, "r", encoding="utf-8").read()
-# print(start_date_string)
+start_date_str = open(datePath, "r", encoding="utf-8").read()
+# print(start_date_str)
 
-start_date = datetime.strptime(start_date_string,"%Y-%m-%d").date()
+start_date = datetime.strptime(start_date_str,"%Y-%m-%d").date()
 end_date = start_date + (day_delta * 6)
+end_date_str = format(end_date)
 
-print(start_date)
-print(end_date)
+# print(start_date)
+# print(end_date)
 
 # write next start date back to file
 next_start_date = start_date + (day_delta * 7)
@@ -122,7 +123,7 @@ dateFile.close()
 
 # Uncomment to exit here before accessing toggl's API
 # ---------------------------------------------------
-exit()
+# exit()
 
 
 
@@ -402,7 +403,7 @@ outputPath = "{}weekly_report_{}_to_{}.txt".format(id_vals["outpath"],
                                                     start_date,
                                                     end_date)
                                                     
-# print(outputPath)
+print(outputPath)
 outfile = open(outputPath, "w", encoding="utf-8")
 # output = outfile    # I keep writing "output" by mistake
 
@@ -499,4 +500,4 @@ outfile.close()
 # Final readln
 # ------------
 
-readln = input("Press enter to exit program.")
+# readln = input("Press enter to exit program.")
