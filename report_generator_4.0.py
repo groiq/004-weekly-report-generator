@@ -244,12 +244,17 @@ if args.interactive:
     print("selected projects:")
     print(selectedProjects)
 else:
-    selectedProjects = ("Organisation","Programmieren")
+    selectedProjects = ["Organisation","Programmieren"]
     
 
 
 
 # Make a list of daily reports
+
+# if a project is not in the log, remove it from the selected projects
+for project in selectedProjects:
+    if not project in taskLog:
+        selectedProjects.remove(project)
 
 reports = dict()
 for project in selectedProjects:
