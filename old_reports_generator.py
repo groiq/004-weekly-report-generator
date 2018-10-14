@@ -266,6 +266,18 @@ selectedProjects = ("Organisation","Programmieren")
 
 # Make a list of daily reports
 
+# if a project is not in the log, remove it from the selected projects
+print("selected projects")
+for project in selectedProjects:
+    print(project)
+print("taskLog")
+for project in taskLog:
+    print(project)
+for project in selectedProjects:
+    if not project in taskLog:
+        print("not in taskLog: " + project)
+        
+
 reports = dict()
 for project in selectedProjects:
     for date in taskLog[project]:
