@@ -274,13 +274,12 @@ unselectedProjects = list()
 for project in taskLog:
     # print(project)
     if not project in selectedProjects:
-        print(project)
         unselectedProjects.append(project)
         # taskLog.pop(project)
-print(unselectedProjects)
+# print(unselectedProjects)
 for project in unselectedProjects:
     taskLog.pop(project)
-pprint(taskLog)
+# pprint(taskLog)
         
 # Make a list of daily reports
 
