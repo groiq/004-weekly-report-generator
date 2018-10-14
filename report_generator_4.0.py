@@ -249,12 +249,24 @@ else:
 
 
 
-# Make a list of daily reports
-
 # if a project is not in the log, remove it from the selected projects
 for project in selectedProjects:
     if not project in taskLog:
         selectedProjects.remove(project)
+  
+# remove unselected projects from log
+unselectedProjects = list()
+for project in taskLog:
+    # print(project)
+    if not project in selectedProjects:
+        unselectedProjects.append(project)
+        # taskLog.pop(project)
+# print(unselectedProjects)
+for project in unselectedProjects:
+    taskLog.pop(project)
+# pprint(taskLog)
+        
+# Make a list of daily reports
 
 reports = dict()
 for project in selectedProjects:
