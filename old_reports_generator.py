@@ -369,10 +369,15 @@ reportSource.close()
 addedReports = []
 
 #auto-fill reports
+dummyReport = dict()
+dummyReport["smiley"] = ":-/"
+dummyReport["comment"] = "unknown"
 for date in sorted(reports):
     report = reports[date]
     if not report:
-        reportLine = "bbb {} :-/ unknown".format(date)
+        report = dummyReport
+        reports[date] = report
+        reportLine = "bbb {} {} {}\n".format(date,report["smiley"],report["comment"])
         print(reportLine)
         addedReports.append(reportLine)
 
