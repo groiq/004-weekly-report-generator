@@ -76,9 +76,9 @@ next_start_date = start_date + (day_delta * 7)
 next_start_date_str = format(next_start_date)
 
 dateFile = open(datePath, "w", encoding="utf-8")
-# dateFile.write(next_start_date_str)
+dateFile.write(next_start_date_str)
 # write old date for test purposes
-dateFile.write(start_date_str)
+# dateFile.write(start_date_str)
 
 dateFile.close()
 
@@ -368,23 +368,30 @@ reportSource.close()
 
 addedReports = []
 
-
-
+#auto-fill reports
 for date in sorted(reports):
     report = reports[date]
     if not report:
-        print("Please write a report for {}:".format(date))
-        report = dict()
-        report["smiley"] = input("smiley: ")
-        while not report["smiley"]:
-            report["smiley"] = input("Error: Please enter smiley again. ")
-        report["comment"] = input("comment: ")
-        while not report["comment"]:
-            report["comment"] = input("Error: Please enter comment again. ")
-        reports[date] = report
-        reportLine = "bbb {} {} {}\n".format(date,report["smiley"],report["comment"])
-        # print(reportLine)
+        reportLine = "bbb {} :-/ unknown".format(date)
+        print(reportLine)
         addedReports.append(reportLine)
+
+# fill in missing reports manually
+# for date in sorted(reports):
+#     report = reports[date]
+#     if not report:
+#         print("Please write a report for {}:".format(date))
+#         report = dict()
+#         report["smiley"] = input("smiley: ")
+#         while not report["smiley"]:
+#             report["smiley"] = input("Error: Please enter smiley again. ")
+#         report["comment"] = input("comment: ")
+#         while not report["comment"]:
+#             report["comment"] = input("Error: Please enter comment again. ")
+#         reports[date] = report
+#         reportLine = "bbb {} {} {}\n".format(date,report["smiley"],report["comment"])
+#         # print(reportLine)
+#         addedReports.append(reportLine)
        
 # print(addedReports)
        
