@@ -73,9 +73,19 @@ while curSunday <= date.today():
     response = toggl.request("https://toggl.com/reports/api/v2/summary",
                 parameters=requestParams)
     print("retrieved {} - {}. Sleeping...".format(curMonday,curSunday))
-    testOutput.append(response["data"])
-    testOutput.append("="*50)
+    #testOutput.append(response["data"])
+    #testOutput.append("="*50)
     sleep(2)
+    testOutput.append(curMonday)
+
+    responseData = response["data"]
+    for item in responseData:
+        curProject = item["title"]["project"]
+        curTime = item["time"]
+        #testOutput.append(item["time"])
+        #testOutput.append(item["title"]["project"])
+        testOutput.append(curProject)
+        testOutput.append(curTime)
 
 
 
