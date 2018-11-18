@@ -22,3 +22,5 @@ parsed = json.loads(intext)
 
 # Issue is that json parser can't handle single quotes. Also, cannot handle
 #  datetime because not a standard variable type.
+
+# Simplest workaround is probably to call the json generator again, this time having the json library write to file rather than pprint.
