@@ -32,7 +32,8 @@ while curSunday <= date.today():
     # create dict entry
     # -----------------
     curWeek = dict()
-    
+    curWeek["Mon"] = curMonday
+    curWeek["Sun"] = curSunday
 
 
 
