@@ -1,3 +1,4 @@
 # ignore user data
 data/
 TogglPy.py
+*.code-workspace
