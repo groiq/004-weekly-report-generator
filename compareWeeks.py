@@ -24,11 +24,35 @@ testOutput = [{'mon': '12766-03-1', 'sun': '12766-03-7', 'times': {'coding': '15
 
 datalog = []
 
+# loop through consecutive weeks
+# ------------------------------
+
+while curSunday <= date.today():
+
+    # create dict entry
+    # -----------------
+    curWeek = dict()
+    
+
+
+
+    datalog.append(curWeek)
+
+    # move to next week
+    # -----------------
+    curMonday += tag * 7
+    curSunday += tag * 7
+
+    
 
 
 
 
 
+
+
+
+# write to output file
 
 with open("./data/compareWeeksJson.txt","w",encoding="utf-8") as outfile:
     pprint(testOutput,outfile)
