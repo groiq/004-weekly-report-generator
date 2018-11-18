@@ -19,9 +19,9 @@ from time import sleep
 
 firstMonday = date(2017,8,28)
 firstSunday = date(2017,9,3)
-# dates for API tests
-firstMonday = date(2018,11,5)
-firstSunday = date(2018,11,11)
+# # dates for API tests
+# firstMonday = date(2018,11,5)
+# firstSunday = date(2018,11,11)
 
 
 dayDelta = timedelta(1,0,0)
@@ -124,7 +124,7 @@ datalog.append(projectList)
 # write to output file
 
 with open("./data/compareWeeksJson.txt","w",encoding="utf-8") as outfile:
-    pprint(testOutput,outfile)
-    outfile.write("\n{}\n".format("="*60))
+    #pprint(testOutput,outfile)
+    #outfile.write("\n{}\n".format("="*60))
     pprint(datalog,outfile)
 
