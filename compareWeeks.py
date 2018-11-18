@@ -86,6 +86,8 @@ while curSunday <= date.today():
         #testOutput.append(item["title"]["project"])
         testOutput.append(curProject)
         testOutput.append(curTime)
+        if not curProject in projectList:
+            projectList.append(curProject)
 
 
 
@@ -98,7 +100,7 @@ while curSunday <= date.today():
 
     
 
-
+datalog.append(projectList)
 
 
 
