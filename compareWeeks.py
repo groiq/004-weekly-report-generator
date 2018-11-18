@@ -64,14 +64,15 @@ while curSunday <= date.today():
     requestParams = {
         "workspace_id": idVals["id"],
         "user_agent": idVals["uagent"],
+        "grouping": "projects",
         "since": curMonday,
         "until": curSunday,
     }
 
-    response = toggl.request("https://toggl.com/reports/api/v2/details",
+    response = toggl.request("https://toggl.com/reports/api/v2/summary",
                 parameters=requestParams)
     print("retrieved {} - {}. Sleeping...".format(curMonday,curSunday))
-    testOutput.append(response)
+    testOutput.append(response["data"])
     testOutput.append("="*50)
     sleep(2)
 
