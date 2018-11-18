@@ -76,7 +76,7 @@ while curSunday <= date.today():
     #testOutput.append(response["data"])
     #testOutput.append("="*50)
     sleep(2)
-    testOutput.append(curMonday)
+    #testOutput.append(curMonday)
 
     responseData = response["data"]
     for item in responseData:
@@ -84,11 +84,14 @@ while curSunday <= date.today():
         curTime = item["time"]
         #testOutput.append(item["time"])
         #testOutput.append(item["title"]["project"])
-        testOutput.append(curProject)
-        testOutput.append(curTime)
+        #testOutput.append(curProject)
+        #testOutput.append(curTime)
+        curTime = timedelta(milliseconds = curTime)
         curWeek["times"][curProject] = curTime
         if not curProject in projectList:
             projectList.append(curProject)
+
+    
 
 
 
@@ -101,9 +104,19 @@ while curSunday <= date.today():
 
     
 
+# # test timedelta
+# # --------------
+# for week in datalog:
+#     #testOutput.append(week)
+#     testOutput.append(week["Mon"])
+#     for time in week["times"]:
+#         testOutput.append(week["times"][time])
+#     print(week["Mon"])
+#     for time in week["times"]:
+#         print(time)
+#         print(week["times"][time])
+
 datalog.append(projectList)
-
-
 
 
 
