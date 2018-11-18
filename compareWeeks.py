@@ -86,6 +86,7 @@ while curSunday <= date.today():
         #testOutput.append(item["title"]["project"])
         testOutput.append(curProject)
         testOutput.append(curTime)
+        curWeek["times"][curProject] = curTime
         if not curProject in projectList:
             projectList.append(curProject)
 
