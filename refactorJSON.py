@@ -24,3 +24,6 @@ parsed = json.loads(intext)
 #  datetime because not a standard variable type.
 
 # Simplest workaround is probably to call the json generator again, this time having the json library write to file rather than pprint.
+
+# Scratch all that, I'm switching to database now.
+
